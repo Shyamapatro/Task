@@ -100,8 +100,23 @@ db.admin_mangement.deleteOne({ firstName: 'shyama' });
 --to rename the collection
 db.restaurants.renameCollection(resturent)
 
+---for creating 5000 demo record
+ for(let i=1;i<5000;i++){
+... db.products.insert({productName:'product'+i,price:i})}
+-----
+--- for checking indexing 
+db.products.find({productName:'product2000'}).explain('executionStats')
 
+------for Createing Indexing 
+db.products.createIndex({name:1})
 
+-- checking 
+db.products.getIndex()
+
+---Note: by Default Id have indexing
+
+---drop indexes
+db.products.dropIndex("name_1")
 
 
 
