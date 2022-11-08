@@ -33,8 +33,32 @@ db.restaurants.insertOne({
 )
 
 ------ sucessfully documented is stored
-{ acknowledged: true,
-  insertedId: ObjectId("633286057cd077a95498b12c") }
+---deleteMany
+db.products.deleteMany({_id:{$in:[ObjectId("6369f7050f25bdda1bab624e"),ObjectId("6369f7640f25bdda1bab624f")
+
+
+------ 
+ db.products.update({_id:ObjectId("6369f8a60f25bdda1bab6250")},{$set:{reviews:[{text:"this is good product",start:4},{text:"this is average product",start:3}]}})
+ 
+ 
+ ------equal to
+ db.products.find({productName:{$eq:'pen'}}).pretty()
+ 
+ 
+----greater than
+db.products.find({price:{$gt:6}}).pretty()
+---greater than equal
+db.products.find({price:{$gte:5}}).pretty()
+---lessthan
+db.products.find({price:{$lt:6}}).pretty()
+---lessthan equal
+db.products.find({price:{$lte:10}}).pretty()
+---not equal 
+db.products.find({price:{$ne:10}}).pretty()
+---and logical operator when the condtion is true
+db.products.find({$and :[{price:{$eq:5}},{productName:{$eq:"pen"}}]})
+---or logical operator when the condtion is true
+db.products.find({$or :[{price:{$eq:10}},{productName:{$eq:"pen"}}]})
 
 
 
@@ -75,6 +99,9 @@ db.admin_mangement.deleteOne({ firstName: 'shyama' });
 
 --to rename the collection
 db.restaurants.renameCollection(resturent)
+
+
+
 
 
 
