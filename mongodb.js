@@ -118,7 +118,18 @@ db.products.getIndex()
 ---drop indexes
 db.products.dropIndex("name_1")
 
+------- projection  in second { } titile: 1 means title is in the projection and 0 means not in the projection
+db.mycol.find({},{"title":1,_id:0})
 
+---- limit()   is fatch only limited data in the below example we only get 2 data
+db.mycol.find({},{"title":1,_id:0}).limit(2)
+
+--- sort() To sort documents in MongoDB, you need to use sort() method.
+----The method accepts a document containing a list of fields along with their sorting order. 
+------To specify sorting order 1 and -1 are used. 1 is used for ascending order while -1 is used for descending order.
+
+
+db.COLLECTION_NAME.find().sort({KEY:1})
 
 */
 
