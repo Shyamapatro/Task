@@ -3,29 +3,33 @@ var router = express.Router();
 let Controllers = require("../controllers");
 const sendResponse = require("../Helper/sendResponse");
 
-router.post("/add", (req, res) => {
+router.post("/api/card/save", (req, res) => {
   let payload = req.body;
   console.log("Payload data", payload);
   return sendResponse.executeMethod(Controllers.adminControllers.addadmin, payload, req, res);
 });
 
-router.get("/get", (req, res) => {
+router.get("/api/card/fetch", (req, res) => {
   let payload = req.query;
   return sendResponse.executeMethod(Controllers.adminControllers.getAlladmin, payload, req, res);
 });
 
-router.put("/edit/:id", (req, res) => {
-    let payload=req.body
-    payload.id=req.params
-    return sendResponse.executeMethod(Controllers.adminControllers.Updateadmin,payload,req,res);
+router.get("/api/card/colors", (req, res) => {
+  let payload = req.query;
+  return sendResponse.executeMethod(Controllers.adminControllers.getAllcolors, payload, req, res);
 });
 
-router.get('/get/:id', async (req, res) => {
-    return sendResponse.executeMethod(Controllers.adminControllers.getadmintDetail,req.params,req,res)
+
+
+router.get("/api/validatetitle", (req, res) => {
+  let payload = req.query;
+  return sendResponse.executeMethod(Controllers.adminControllers.getadmintDetail, payload, req, res);
+});
+
+
+router.get('/api/filter', async (req, res) => {
+    return sendResponse.executeMethod(Controllers.adminControllers.getadmintfilterDetails,req.params,req,res)
 })
 
-router.delete("/delete/:id", (req, res) => {
-    return sendResponse.executeMethod(Controllers.adminControllers.deleteadminDetails,req.params,req, res);
-});
 
 module.exports = router;
