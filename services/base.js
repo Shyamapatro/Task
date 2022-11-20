@@ -1,15 +1,34 @@
 const Response = require("../config/response");
 const dbo = require("../db/connection");
 
-exports.getSingleRecord = (CollectionName, criteria, projection) => {
+exports.getSingleRecord = (CollectionName, criteria) => {
 	console.log("CollectionName",CollectionName);
-    console.log("projection=====",);
+    console.log("criteria=====",criteria);
 	return new Promise((resolve, reject) => {
     const dbConnect = dbo.getDb();
 	dbConnect.collection(CollectionName)
-      .findOne(criteria,{ _id: 0 })
+      .findOne(criteria)
 			.then(result => {
 				resolve(result);
+				console.log("result",result)
+			}).catch((err) => {
+				console.log(err);
+				reject(Response.error_msg.implementationError);
+			});
+	});
+};
+
+
+exports.getSingleRecord1 = (CollectionName, criteria) => {
+	console.log("CollectionName",CollectionName);
+    console.log("criteria=====",criteria);
+	return new Promise((resolve, reject) => {
+    const dbConnect = dbo.getDb();
+	dbConnect.collection(CollectionName)
+      .findOne(criteria)
+			.then(result => {
+				resolve(result);
+				console.log("result",result)
 			}).catch((err) => {
 				console.log(err);
 				reject(Response.error_msg.implementationError);
@@ -33,32 +52,3 @@ exports.saveData = (CollectionName, objToSave) => {
 	});
 };
 
-exports.updateData = (CollectionName, criteria, objToSave) => {
-	console.log('updateData---=====', CollectionName, objToSave,criteria);
-	return new Promise((resolve, reject) => {
-		const dbConnect = dbo.getDb();
-		dbConnect.collection(CollectionName)
-		.updateOne(criteria, objToSave)
-			.then(result => {
-				console.log('updateData---',result)
-				resolve(result);
-			}).catch((err) => {
-				console.log(err);
-				reject(Response.error_msg.implementationError);
-			});
-	});
-};
-
-exports.delete = (CollectionName, criteria) => {
-	return new Promise((resolve, reject) => {
-		const dbConnect = dbo.getDb();
-		dbConnect.collection(CollectionName)
-		.deleteOne(criteria)
-			.then(result => {
-				resolve(result);
-			}).catch((err) => {
-				console.log(err);
-				reject(Response.error_msg.implementationError);
-			});
-	});
-};
