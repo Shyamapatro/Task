@@ -95,18 +95,21 @@ module.exports = {
       };
     }
   },
-  getadmintfilterDetails: async (payload) => {
-    console.log("payloadData",payload)
+  getadmintfilterDetails: async (payloadData) => {
+    console.log("payloadData",payloadData)
     // criteria={payload}
-
-    let adminfilterDetails = await Service.adminServices.getAllAdmins();
-    console.log("adminfilterDetails",adminfilterDetails)
+    const schema = Joi.object().keys({
+      id: Joi.any().required(),
+      data: Joi.any().required(),
+    });
+    let payload = await commonHelper.verifyJoiSchema(payloadData, schema);
+    var criteria = { _id: ObjectID(payload.id)};
+    let adminfilterDetails = await Service.adminServices.getadminDetails(criteria);
+    console.log("adminfilterDetails",adminfilterDetails.title===payloadData.data, adminfilterDetails.description===payloadData.data)
     
-    if (adminfilterDetails.title===payload) {
+    if (adminfilterDetails.title===payloadData.data || adminfilterDetails.description===payloadData.data) {
       return adminfilterDetails;
-    } else if(adminfilterDetails.description===payload) {
-      return adminfilterDetails;
-    }else{
+    } else{
       throw Response.error_msg.recordNotFound;
     }
   },
